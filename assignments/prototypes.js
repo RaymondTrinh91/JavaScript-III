@@ -15,7 +15,14 @@
   * dimensions (These represent the character's size in the video game)
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
-
+function GameObject(object){
+  this.createdAt = object.createdAt,
+  this.name = object.name,
+  this.dimensions = object.dimensions,
+  this.destroy = function(){
+    return `${this.name} was removed from the game.`
+  }
+}
 /*
   === CharacterStats ===
   * healthPoints
@@ -41,7 +48,7 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +109,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
