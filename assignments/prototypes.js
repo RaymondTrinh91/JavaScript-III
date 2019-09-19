@@ -135,3 +135,99 @@ Humanoid.prototype.greet = function(){
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+function Hero(hero){
+    Humanoid.call (this, hero);
+    this.blessing = hero.blessing;
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.attack = function(){
+    let dmg = Math.floor(Math.random() * (7 - 1) + 1);
+    let eHp = demonLord.healthPoints;
+    let sHp = eHp - dmg;
+    if (sHp <= 0){
+        return demonLord.destroy();
+    }
+    demonLord.healthPoints = sHp;
+    console.log(demonLord.healthPoints)
+    return demonLord.takeDamage();
+};
+
+Hero.prototype.holyStrike = function(){
+    let holyDmg = Math.floor(Math.random() * (15 - 3) + 3);
+    let eHp = demonLord.healthPoints;
+    let sHp = eHp - holyDmg;
+    if (sHp <= 0){
+        return demonLord.destroy();
+    }
+    demonLord.healthPoints = sHp;
+    console.log(demonLord.healthPoints)
+    return demonLord.takeDamage();
+};
+
+Hero.prototype.holyShield = function(){
+    heroOfLegend.healthPoints += 50;
+    console.log(heroOfLegend.healthPoints);
+    return `A Shield of Light wraps around ${heroOfLegend.name}`;
+}
+
+function Villian(badGuy){
+    Humanoid.call (this, badGuy);
+    this.curse = badGuy.curse;
+}
+Villian.prototype = Object.create(Humanoid.prototype);
+Villian.prototype.punch = function(){
+    let dmg = Math.floor(Math.random() * (1000 - 800) + 800);
+    console.log(dmg)
+    let eHp = heroOfLegend.healthPoints;
+    let sHp = eHp - dmg;
+    if (sHp <= 0){
+        return heroOfLegend.destroy();
+    }
+    heroOfLegend.healthPoints = sHp;
+    console.log(heroOfLegend.healthPoints)
+    return heroOfLegend.takeDamage();
+}
+
+const heroOfLegend = new Hero({
+    createdAt: new Date(),
+    dimensions:{
+    length:2,
+    width:2,
+    height:2,
+    },
+    healthPoints:35,
+    name: 'Mars',
+    team: 'Justice',
+    weapons:[
+    'Icecaliberg',
+    'Ceaser\'s Shal\'d', 
+    ],
+    language: 'Common Tongue',
+    blessing: 'Blessed by Fairies',
+});
+
+const demonLord = new Villian({
+    createdAt: new Date(),
+    dimensions:{
+    length: 4,
+    width: 3,
+    height: 5,
+    },
+    healthPoints: 50,
+    name: 'Bob',
+    team: 'Team Bob',
+    weapons: [
+    'Left Fist',
+    'Right Fist',
+    ],
+    language: 'English',
+    curse: 'Where am I? How did I get here?',
+});
+  
+console.log(heroOfLegend.attack());
+console.log(heroOfLegend.holyStrike());
+console.log(heroOfLegend.holyShield());
+console.log(heroOfLegend.holyStrike());
+console.log(demonLord.punch());
+
